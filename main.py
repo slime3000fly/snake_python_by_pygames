@@ -17,6 +17,8 @@ lose = 0
 number_of_apple = 0
 size = 1  # variable which define how long is snake
 t = 0.5
+g=10
+j=10
 
 # color
 red = pygame.Color(139, 0, 0)
@@ -28,8 +30,12 @@ yellow = (255, 50, 170)
 x_apple = 0
 y_apple = 0
 
-while 1:
+done = False
+
+while not done:
+
     while lose == 0:
+        #print(size)
         for event in pygame.event.get():
             if event.type == pygame.QUIT: sys.exit()
 
@@ -40,6 +46,19 @@ while 1:
                 y.append(i)
 
         if x[0] >= 1040 or x[0] <= 10 or y[0] >= 700 or y[0] <= 10: lose = 1  # check if snake touch wall
+        # check if snake is touching itself
+        snake_head_x = x[0]
+        snake_head_y = y[0]
+        # check if snake is colliding itself
+        for k in range(1, size):
+
+
+            if snake_head_x <= x[k] + g:
+                if snake_head_y <= y[k] + j:
+                    lose = 1
+                    print(lose)
+                    print('gowno')
+            print(x[k]+g,y[k]+j,snake_head_x,snake_head_y)
 
         # key to control snake
         if event.type == pygame.KEYDOWN:
@@ -55,6 +74,10 @@ while 1:
             if event.key == pygame.K_LEFT:
                 z2 = - move
                 z1 = 0
+            if event.key == pygame.K_ESCAPE:
+                done = True
+                lose = 1
+
         # nubmer to move snake
         x[0] = x[0] + z2
         y[0] = y[0] + z1
@@ -115,23 +138,20 @@ while 1:
                 for i in range(-21, 21):
                     if (y[0] + i == y_apple):
                         number_of_apple = 0
-                        size += 1
+                        size += 10
 
+        # FPS !!!!!
         fps_controller.tick(12)
+
         previos_x = x[0]
         previos_y = y[0]
-
-        # check if snake is touching itself
-        for k in range (0, size):
-            snake_head_x ]
-            snake_head_y = y    
-            if   == x[k] and snake_head_y == y[k]:
-                 lose = 1
 
     # #after lose game
     for event in pygame.event.get():
         if event.type == pygame.QUIT: sys.exit()
-
+        if event.type == pygame.KEYDOWN:
+            if event.key == pygame.K_ESCAPE:
+                lose = 0
     # drawing writing 'you lose'
     font = pygame.font.Font('freesansbold.ttf', 52)
     text = font.render('YOU LOSE', True, red, white)
