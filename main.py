@@ -1,6 +1,5 @@
 import pygame, sys, time, random
 
-
 pygame.init()
 pygame.display.init()
 fps_controller = pygame.time.Clock()
@@ -8,13 +7,17 @@ fps_controller = pygame.time.Clock()
 clock = pygame.time.Clock()
 screen = pygame.display.set_mode((1080, 720))
 
-#variable declartaion
+# variable declartaion
 x = [200]
 y = [200]
 checker = [0]
 number_of_apple = 0
 size = 1  # variable which define how long is snake
 t = 0.5
+z1 = 0
+z2 = 0
+move = 20  # variable which define how big is single step for snake
+
 
 # function declaration
 def lose():
@@ -37,8 +40,10 @@ def lose():
         screen.blit(text, textRect)
 
         pygame.display.update()
+
+
 def touch():
-    #function to check if snake touch itself or wall
+    # function to check if snake touch itself or wall
     snake_head_x = x[0]
     snake_head_y = y[0]
     # check if snake is colliding itself
@@ -53,32 +58,7 @@ def touch():
                         lose()
     # check if snake is touching wall
     if snake_head_x >= 1040 or snake_head_x <= 10 or snake_head_y >= 700 or snake_head_y <= 10: lose()
-def control():
-    #function to control snake
-    z1 = 0
-    z2 = 0
-    move = 20  # variable which define how big is single step for snake
-    # key to control snake
-    if event.type == pygame.KEYDOWN:
-        if event.key == pygame.K_UP:
-            z1 = - move
-            z2 = 0
-        if event.key == pygame.K_DOWN:
-            z1 = move
-            z2 = 0
-        if event.key == pygame.K_RIGHT:
-            z2 = move
-            z1 = 0
-        if event.key == pygame.K_LEFT:
-            z2 = - move
-            z1 = 0
-        if event.key == pygame.K_ESCAPE:
-            done = True
 
-    # nubmer to move snake
-    x[0] = x[0] + z2
-    y[0] = y[0] + z1
-    return x[0],y[0]
 
 # color
 red = pygame.Color(139, 0, 0)
@@ -105,7 +85,26 @@ while not done:
             y.append(i)
 
     touch()
-    control()
+    # key to control snake
+    if event.type == pygame.KEYDOWN:
+        if event.key == pygame.K_UP:
+            z1 = - move
+            z2 = 0
+        if event.key == pygame.K_DOWN:
+            z1 = move
+            z2 = 0
+        if event.key == pygame.K_RIGHT:
+            z2 = move
+            z1 = 0
+        if event.key == pygame.K_LEFT:
+            z2 = - move
+            z1 = 0
+        if event.key == pygame.K_ESCAPE:
+            done = True
+
+    # nubmer to move snake
+    x[0] = x[0] + z2
+    y[0] = y[0] + z1
 
     # create x and y for drawing apple
     if number_of_apple == 0:
