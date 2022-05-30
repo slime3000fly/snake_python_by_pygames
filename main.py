@@ -9,6 +9,34 @@ fps_controller = pygame.time.Clock()
 
 screen = pygame.display.set_mode((1080, 720))
 
+# initial score
+score = 0
+
+# highest score
+highest_score = 0
+
+#color
+black = (0, 0, 0)
+
+
+def show_score(choice, color, font, size):
+    # creating font object score_font
+    score_font = pygame.font.SysFont(font, size)
+
+    # create the display surface object
+    # score_surface
+    score_surface = score_font.render('Score : ' + str(score) + ' ' + 'Highest Score : ' + str(highest_score), True,
+                                      color)
+
+    # create a rectangular object for the text
+    # surface object
+    score_rect = score_surface.get_rect()
+
+    # displaying text
+    screen.blit(score_surface, score_rect)
+
+
+
 # variable declartaion
 x = [200]
 y = [200]
@@ -145,6 +173,8 @@ while not done:
     pygame.draw.rect(screen, orange, pygame.Rect(1070, 0, 20, 720))
     pygame.draw.rect(screen, orange, pygame.Rect(0, 0, 1080, 20))
     pygame.draw.rect(screen, orange, pygame.Rect(0, 710, 1080, 20))
+    # drawing score
+    show_score(1, black, 'times new roman', 20)
 
     pygame.display.flip()
 
@@ -155,6 +185,9 @@ while not done:
                 if (y[0] + i == y_apple):
                     number_of_apple = 0
                     size += 1
+                    score +=1
+                    if score >= highest_score:
+                        highest_score +=1
 
     # FPS !!!!!
     fps_controller.tick(15)
