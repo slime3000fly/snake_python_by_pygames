@@ -1,5 +1,19 @@
 import pygame, sys, time, random
 
+
+def touch():
+    # function check if snake is colliding itself
+    for i in range(1, size):
+        for k in range(0, 11):
+            if (snake_head_x == x[i] + k):
+                for k in range(0, 11):
+                    if (snake_head_y == y[i] + k):
+                        lose = 1
+                        print(lose)
+                        print('gowno')
+                        return lose
+
+
 pygame.init()
 pygame.display.init()
 fps_controller = pygame.time.Clock()
@@ -17,8 +31,6 @@ lose = 0
 number_of_apple = 0
 size = 1  # variable which define how long is snake
 t = 0.5
-g=10
-j=10
 
 # color
 red = pygame.Color(139, 0, 0)
@@ -35,7 +47,7 @@ done = False
 while not done:
 
     while lose == 0:
-        #print(size)
+        # print(size)
         for event in pygame.event.get():
             if event.type == pygame.QUIT: sys.exit()
 
@@ -49,16 +61,8 @@ while not done:
         # check if snake is touching itself
         snake_head_x = x[0]
         snake_head_y = y[0]
-        # check if snake is colliding itself
-        for k in range(1, size):
 
-
-            if snake_head_x <= x[k] + g:
-                if snake_head_y <= y[k] + j:
-                    lose = 1
-                    print(lose)
-                    print('gowno')
-            print(x[k]+g,y[k]+j,snake_head_x,snake_head_y)
+        touch()
 
         # key to control snake
         if event.type == pygame.KEYDOWN:
@@ -90,7 +94,6 @@ while not done:
 
         screen.fill(white)
         # drawing snake
-        # TODO: zrob zeby rysowalo sie w zaleznosci od ruchu snake podczas ruchu nie zjedzenia jablka
         i = 0
         for i in range(0, size):
             # drawing snake head
@@ -101,10 +104,6 @@ while not done:
                 temp_y2 = y[i]
                 x[i] = previos_x
                 y[i] = previos_y
-                if (x[i - 1] < x[i]): x[i] -= 20 - move
-                if (x[i - 1] > x[i]): x[i] += 20 - move
-                if (y[i - 1] < y[i]): y[i] -= 20 - move
-                if (y[i - 1] > y[i]): y[i] += 20 - move
                 pygame.draw.rect(screen, blue, pygame.Rect(x[i], y[i], 20, 20))
             if (i >= 2):
                 if (i % 2 == 0):
@@ -164,3 +163,6 @@ while not done:
     screen.blit(text, textRect)
 
     pygame.display.update()
+
+
+
