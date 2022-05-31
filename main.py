@@ -21,22 +21,11 @@ f.close()
 black = (0, 0, 0)
 
 def show_score(choice, color, font, size):
-    # creating font object score_font
     score_font = pygame.font.SysFont(font, size)
-
-    # create the display surface object
-    # score_surface
     score_surface = score_font.render('Score : ' + str(score) + ' ' + 'Highest Score : ' + str(highest_score), True,
                                       color)
-
-    # create a rectangular object for the text
-    # surface object
     score_rect = score_surface.get_rect()
-
-    # displaying text
     screen.blit(score_surface, score_rect)
-
-
 
 # variable declartaion
 x = [200]
@@ -51,7 +40,6 @@ move = 20  # variable which define how big is single step for snake
 x_apple = 0
 y_apple = 0
 
-
 # function declaration
 def lose():
     # function which play after lose game
@@ -60,20 +48,16 @@ def lose():
             if event.type == pygame.QUIT: sys.exit()
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_ESCAPE:
-                    lose = 0
+                    pygame.QUIT: sys.exit()
         # drawing writing 'you lose'
         font = pygame.font.Font('freesansbold.ttf', 52)
         text = font.render('YOU LOSE', True, red, white)
         # text surface object
         textRect = text.get_rect()
-
         # set the center of the rectangular object.
         textRect.center = (540, 360)
-
         screen.blit(text, textRect)
-
         pygame.display.update()
-
 
 def touch():
     # function to check if snake touch itself or wall
@@ -89,7 +73,6 @@ def touch():
     if snake_head_x >= 1060 or snake_head_x <= 20 or snake_head_y >= 700 or snake_head_y <= 20:
         lose()
 
-
 # color
 red = pygame.Color(139, 0, 0)
 blue = pygame.Color(51, 255, 255)
@@ -100,11 +83,9 @@ yellow = (255, 50, 170)
 done = False
 
 while not done:
-
     # print(size)
     for event in pygame.event.get():
         if event.type == pygame.QUIT: sys.exit()
-
     # adding new element to list x and y
     for i in range(0, size):
         if (i >= len(x)):
@@ -186,9 +167,9 @@ while not done:
                 if y[0] + i == y_apple:
                     number_of_apple = 0
                     size += 1
-                    score += 1
+                    score += 10
                     if score > highest_score:
-                        highest_score += 1
+                        highest_score = score
     #saving highest score to highest_score.txt
     f = open('highest_score.txt', 'w')
     f.write(str(highest_score))
