@@ -12,12 +12,13 @@ screen = pygame.display.set_mode((1080, 720))
 # initial score
 score = 0
 
-# highest score
-highest_score = 0
+# reading highest score from txt
+f = open('highest_score.txt', 'r')
+highest_score = int(f.read())
+f.close()
 
 #color
 black = (0, 0, 0)
-
 
 def show_score(choice, color, font, size):
     # creating font object score_font
@@ -180,14 +181,18 @@ while not done:
 
     # check if snake eat apple
     for i in range(-17, 16):
-        if (x[0] + i == x_apple):
+        if x[0] + i == x_apple:
             for i in range(-17, 16):
-                if (y[0] + i == y_apple):
+                if y[0] + i == y_apple:
                     number_of_apple = 0
                     size += 1
-                    score +=1
-                    if score >= highest_score:
-                        highest_score +=1
+                    score += 1
+                    if score > highest_score:
+                        highest_score += 1
+    #saving highest score to highest_score.txt
+    f = open('highest_score.txt', 'w')
+    f.write(str(highest_score))
+    f.close()
 
     # FPS !!!!!
     fps_controller.tick(15)
