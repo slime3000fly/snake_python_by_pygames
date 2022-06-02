@@ -21,11 +21,11 @@ f.close()
 
 #music
 mixer.music.set_volume(0.5)
-mixer.music.load('snake(by damn so deep).mp3')
+mixer.music.load('snake (by damn so deep).mp3')
 mixer.music.play(2)
-mixer.music.queue('koks terrarka(by damn so deep).mp3')
+mixer.music.queue('koks terrarka (by damn so deep).mp3')
 mixer.music.play(1)
-mixer.music.queue('The Fall(by damn so deep).mp3')
+mixer.music.queue('The Fall (by damn so deep).mp3')
 mixer.music.play()
 
 #sfx
