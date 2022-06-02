@@ -2,6 +2,8 @@
 # By: slime3000fly and a little bit by angater1
 
 import pygame, sys, time, random
+from pygame import mixer
+
 
 pygame.init()
 pygame.display.init()
@@ -16,6 +18,19 @@ score = 0
 f = open('highest_score.txt', 'r')
 highest_score = int(f.read())
 f.close()
+
+#music
+mixer.music.set_volume(0.5)
+mixer.music.load('snake(by damn so deep).mp3')
+mixer.music.play(2)
+mixer.music.queue('koks terrarka(by damn so deep).mp3')
+mixer.music.play(1)
+mixer.music.queue('The Fall(by damn so deep).mp3')
+mixer.music.play()
+
+#sfx
+lose_sound = mixer.Sound('lose.wav')
+apple_sound = mixer.Sound('apple.wav')
 
 #color
 black = (0, 0, 0)
@@ -43,6 +58,7 @@ y_apple = 0
 # function declaration
 def lose():
     # function which play after lose game
+    lose_sound.play()
     while 1:
         for event in pygame.event.get():
             if event.type == pygame.QUIT: sys.exit()
@@ -168,6 +184,7 @@ while not done:
                     number_of_apple = 0
                     size += 1
                     score += 10
+                    apple_sound.play()
                     if score > highest_score:
                         highest_score = score
     #saving highest score to highest_score.txt
